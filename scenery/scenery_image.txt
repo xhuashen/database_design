@@ -1,0 +1,2 @@
+景点编号                                    图片的jpg文件路径
+XX001                                       image/nanjin.jpg
