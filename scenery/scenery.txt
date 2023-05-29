@@ -1,2 +1,17 @@
 景点编号        景点名称           景点介绍                                             游客年度分布信息                            景点费用 
  XX001           栖霞山              scenery_introduction/XX001.txt        Tourist_distribution/XX001.txt         35
+XW001      南京博物院       scenery_introduction/XW001.txt               tourist_distribution/XW001.txt                    免费
+XW002      南京总统府              scenery_introduction/XW002.txt               tourist_distribution/XW002.txt                    35
+XW003      玄武湖                     scenery_introduction/XW003.txt               tourist_distribution/XW003.txt                    免费
+JN001      牛首山          scenery_introduction/JN001.txt               tourist_distribution/JN001.txt                     98
+JN002      汤山风景区             scenery_introduction/JN002.txt               tourist_distribution/JN002.txt                     40
+JN003      银杏湖旅游度假区  scenery_introduction/JN003.txt                tourist_distribution/JN003.txt                     180
+YHT001     将军山                    scenery_introduction/YHT001.txt              tourist_distribution/YHT001.txt                     免费
+YHT002     雨花台                    scenery_introduction/YHT002.txt              tourist_distribution/YHT002.txt                     免费
+YHT003     南京科技馆             scenery_introduction/YHT003.txt              tourist_distribution/YHT003.txt                     免费
+QH001      大报恩寺                 scenery_introduction/QH001.txt              tourist_distribution/QH001.txt                       免费
+QH002      夫子庙                     scenery_introduction/QH002.txt              tourist_distribution/QH002.txt                       免费
+QH003      老门东                     scenery_introduction/QH003.txt              tourist_distribution/QH003.txt                       免费
+GL001      南京大学鼓楼校区   scenery_introduction/GL001.txt              tourist_distribution/GL001.txt                       免费
+GL002      紫峰大厦                  scenery_introduction/GL002.txt              tourist_distribution/GL002.txt                       免费
+GL003      南京长江大桥          scenery_introduction/GL003.txt              tourist_distribution/GL003.txt                       免费
