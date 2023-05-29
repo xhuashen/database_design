@@ -30,6 +30,13 @@ for i in range(1,len(data_image)):
     cursor.execute(sql)
     db.commit()
 
+# 导入location
+data_location=readtxt("./loaction.txt")
+for i in range(1,len(data_location)):
+    sql = "insert into Location values('{}','{}')".format(data_location[i][0], data_location[i][1])
+    cursor.execute(sql)
+    db.commit()
+
 # 关闭数据库连接
 db.close()
 
