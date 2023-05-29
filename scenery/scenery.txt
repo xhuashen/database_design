@@ -14,4 +14,3 @@ QH002      夫子庙                     scenery_introduction/QH002.txt         
 QH003      老门东                     scenery_introduction/QH003.txt              tourist_distribution/QH003.txt                       免费
 GL001      南京大学鼓楼校区   scenery_introduction/GL001.txt              tourist_distribution/GL001.txt                       免费
 GL002      紫峰大厦                  scenery_introduction/GL002.txt              tourist_distribution/GL002.txt                       免费
-GL003      南京长江大桥          scenery_introduction/GL003.txt              tourist_distribution/GL003.txt                       免费
