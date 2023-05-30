@@ -1,0 +1,4 @@
+对于user
+还有user对景点的收藏信息     -> tabel
+对景点的评价信息   -> tabel
+user自身的信息  -> tabel
