@@ -9,7 +9,7 @@ LS001           天生桥景区              scenery_introduction/LS001.txt     
 LS002          南京玫瑰园         scenery_introduction/LS002.txt        Tourist_distribution/LS002.txt         29
 LS003         南京无想山景区    scenery_introduction/LS003.txt        Tourist_distribution/LS003.txt         10
 GC001           固城湾风景区              scenery_introduction/GC001.txt        Tourist_distribution/GC001.txt         45
-GC002          南京高淳国际漫游        scenery_introduction/GC002.txt        Tourist_distribution/GC002.txt         0
+GC002          南京高淳国际漫城        scenery_introduction/GC002.txt        Tourist_distribution/GC002.txt         0
 GC003         高淳老街        scenery_introduction/GC003.txt        Tourist_distribution/GC003.txt         0
 XW001      南京博物院       scenery_introduction/XW001.txt               tourist_distribution/XW001.txt                    0
 XW002      南京总统府              scenery_introduction/XW002.txt               tourist_distribution/XW002.txt                    35
