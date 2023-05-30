@@ -1,5 +1,5 @@
 景点编号        景点名称           景点介绍                                             游客年度分布信息                            景点费用 
- XX001           栖霞山              scenery_introduction/XX001.txt        Tourist_distribution/XX001.txt         35
+ QX001           栖霞山              scenery_introduction/XX001.txt        Tourist_distribution/XX001.txt         35
 XW001      南京博物院       scenery_introduction/XW001.txt               tourist_distribution/XW001.txt                    免费
 XW002      南京总统府              scenery_introduction/XW002.txt               tourist_distribution/XW002.txt                    35
 XW003      玄武湖                     scenery_introduction/XW003.txt               tourist_distribution/XW003.txt                    免费
