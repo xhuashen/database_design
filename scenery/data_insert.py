@@ -41,6 +41,12 @@ def insertdata():
         cursor.execute(sql)
         db.commit()
 
+    # 导入user
+    data_user=readtxt("C:/Users/19805128155/Desktop/database_design/database_design/user/user.txt")
+    for i in range(1,len(data_user)):
+        sql="insert into user  values('{}','{}')".format(data_user[i][0],data_user[i][1])
+        cursor.execute(sql)
+        db.commit()
     # 关闭数据库连接
     db.close()
 
