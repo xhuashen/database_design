@@ -1,0 +1,27 @@
+<!doctype html>
+
+<html>
+    <header>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <h1 style="text-align:center;">LOG IN</h1>
+        <script>
+            function warning()
+            {
+                alert("登录出现问题，请重试！");
+            }
+        </script>
+    </header>
+    
+    <body onload="warning()" class="content">
+        <form method="post">
+            
+            <label for="studentId">Username</label>
+            <input name="studentId" id="studentId" required>
+    
+            <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+        
+            <input type="submit" value="Log In">
+        </form>
+    </body>
+</html>
