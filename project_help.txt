@@ -1,3 +1,4 @@
 Web应用采用访问和响应的方式和用户进行交互。
 主要由用户发起一个Web requetst 请求，对网页进行请求。
 请求成功后由Web 服务器放回一个 response 对象对浏览器进行渲染，显示出返回的网页。
+https://www.cnblogs.com/remixnameless/p/13288235.html 一个好的学习资料
