@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <title>Custom Buttons</title>
+    <style>
+      #GC {
+        position: absolute;
+        top: 560px;
+        left: 650px;
+        opacity: 0;
+      }
+
+      #JN {
+        position: absolute;
+        top: 320px;
+        left: 600px;
+        opacity: 0;
+      }
+
+      #LS {
+        position: absolute;
+        top: 450px;
+        left: 680px;
+        opacity: 0;
+      }
+
+     #PK {
+        position: absolute;
+        top: 250px;
+        left: 468px;
+        opacity: 0;
+      }
+
+    #QH {
+        position: absolute;
+        top: 480px;
+        left: 450px;
+        opacity: 0;
+      }
+      #QX {
+        position: absolute;
+        top: 202px;
+        left: 622px;
+        opacity: 0;
+      }
+
+      #XW {
+        position: absolute;
+        top: 450px;
+        left: 450px;
+        opacity: 0;
+      }
+
+      #YHT {
+        position: absolute;
+        top: 535px;
+        left: 450px;
+        opacity: 0;
+      }
+
+     #GL {
+        position: absolute;
+        top: 420px;
+        left: 450px;
+        opacity: 0;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: red;
+        cursor: pointer;
+      }
+    </style>
+    <title>背景图片页面</title>
+    <style>
+      body {
+        background-image: url('https://img-qn.51miz.com/preview/photo/00/01/59/99/new-P-1599926-09054101.jpg!/quality/90/unsharp/true/compress/true/format/jpg/fw/300');
+        background-size: cover;
+        background-position: center;
+        height: 100vh; /* 让背景图片占满整个屏幕 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #center-image {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="GC">GC</button>
+    <button id="JN">JN</button>
+    <button id="LS">LS</button>
+    <button id="PK">PK</button>
+    <button id="QH">QH</button>
+    <button id="QX">QX</button>
+    <button id="XW">XW</button>
+    <button id="YHT">YHT</button>
+    <button id="GL">GL</button>
+    <script>
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          window.location.href = `/area=${button.id}`;
+        });
+      });
+    </script>
+    <img id="center-image" src="C:/Users/19805128155/Desktop/database_design/nanjin_area.jpg" alt="中心图片">
+  </body>
+</html>

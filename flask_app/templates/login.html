@@ -1,23 +1,79 @@
-<!doctype html>
-<title>Database Login</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-<section class="content">
-  <header>
-    <h1 style="text-align:left;">LOG IN</h1>
-  </header>
-
-  <form method="post">
-
-    <label for="studentId">Username</label>
-        <input name="studentId" id="studentId" required>
-
-    <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-
-    <input type="submit" value="Log In">
-
-  </form>
-  
-</section>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        background-image: url("https://pic.58tg.com/up/allimg/911/122515125020/151225125020-7.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+      form {
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #888888;
+        margin: 50px auto;
+        padding: 20px;
+        width: 400px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      input[type="text"], input[type="password"] {
+        border-radius: 3px;
+        border: 1px solid #cccccc;
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+      }
+      input[type="submit"], input[type="button"] {
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 3px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px;
+        width: 100%;
+      }
+      input[type="submit"]:hover, input[type="button"]:hover {
+        background-color: #3e8e41;
+      }
+       .register-button-container button {
+        background-color: #008CBA;
+        border: none;
+        border-radius: 3px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px;
+        width: 80%;
+        margin: 0 10%;
+      }
+      .register-button-container button:hover {
+        background-color: #006B8F;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/login_request" method="post">
+      <label for="username">用户名:</label>
+      <input type="text" id="username" name="username" required>
+      <label for="password">密码:</label>
+      <input type="password" id="password" name="password" required>
+      <input type="submit" value="登录">
+    </form>
+     <div class="register-button-container">
+      <button onclick="window.location.href = '/register';">注册</button>
+    </div>
+  </body>
+</html>
+<!--    <button onclick="window.location.href = '/register';">注册</button>-->
+<!--  </body>-->
+<!--</html>-->
