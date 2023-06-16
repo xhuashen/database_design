@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+
 # import config
 import sql
 app = Flask(__name__)
@@ -44,6 +45,27 @@ def login():
 @app.route('/area',methods=['GET'])
 def area():
     return render_template('area.html')
+
+# 使用动态url传参，获取不同城区的前端页面
+@app.route('/area/<area_name>/',methods=["GET"])
+def scenery_list(area_name):
+    # http: // 114.214 .240.215: 7000 / area = LS
+    # print(area_name)
+    scenery = sql.get_scenery_list(area_name) # 创建字典列表
+    # spots = [
+    #     {'id': 1, 'name': '景点1', 'description': '这是一段景点1的简要介绍', 'image': '/static/images/spot1.jpg'},
+    #     {'id': 2, 'name': '景点2', 'description': '这是一段景点2的简要介绍', 'image': '/static/images/spot2.jpg'},
+    #     {'id': 3, 'name': '景点3', 'description': '这是一段景点3的简要介绍', 'image': '/static/images/spot3.jpg'},
+    # ]
+    # 从数据库中提取数据
+    # 用字典列表存储信息
+    # 图片地址：https://github.com/xhuashen/database_design/blob/main/scenery/image/GC00101.jpg
+    for i in scenery:
+        i['description']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['description']
+        i['image']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['image']
+    return render_template('scenery.html',title='景点介绍列表',spots=scenery)
+
+
 
 if  __name__ == '__main__':
     app.run(host="0.0.0.0", port=7000)
