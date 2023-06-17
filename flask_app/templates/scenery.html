@@ -24,14 +24,45 @@
             <div class="card-body">
               <h5 class="card-title">{{ spot.name }}</h5>
               <p class="card-text">{{ spot.description }}</p>
+              <button id="{{ spot.area_name }}+{{spot.name}}" class="details-button">查看详情</button>
+          <div>
+            <button class="like-button" data-id="{{ spot.name }}">收藏</button>
+            <span class="like-count">{{spot.like_count}}</span>
+          </div>
             </div>
           </div>
         </div>
       </div>
+
       {% endfor %}
 
     </div>
+    <script>
+       const buttons = document.querySelectorAll('.details-button');
+       buttons.forEach(button => {
+          button.addEventListener('click', () => {
+              window.location.href = `/details/${button.id}`;
+    });
+  });
+      // 获取所有点赞按钮和点赞数量元素的引用
+  const likeButtons = document.querySelectorAll('.like-button');
+  const likeCounts = document.querySelectorAll('.like-count');
 
+  // 为每个点赞按钮添加点击事件处理函数
+  likeButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const response = await fetch('/api/like', {
+        method: 'POST',
+        body: JSON.stringify({ id: button.dataset.id }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const postId = button.dataset.id;
+      const data = await response.json();
+      const countEl = likeCounts.find(el => el.previousElementSibling.dataset.id === button.dataset.id);
+      countEl.textContent = data.count;
+    });
+  });
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

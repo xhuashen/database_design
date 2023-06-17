@@ -47,7 +47,7 @@ def get_data_from_tabel(tabel):
     data=list(data)
     return data
 
-# 向数据库中插入数据，给定参数表名，插入的元组
+# 向数据库中插入数据，给定参数表名，插入的元组,三属性的插入
 def insert_user_data(table,account,password,name):
     db = get_db()
     cursor = db.cursor()
@@ -57,6 +57,20 @@ def insert_user_data(table,account,password,name):
     cursor.execute(sql)
     # 执行sql语句
     db.commit()
+
+# 两属性表的插入
+def insert_user_data_two(table,account,SYcode):
+    db = get_db()
+    cursor = db.cursor()
+    sql="insert into %s values ('%s','%s')" % \
+        (table,account,SYcode)
+    print(sql)
+    # 执行sql语句
+    cursor.execute(sql)
+    # 执行sql语句
+    db.commit()
+
+
 
 # 单表查询，单条件,查询单属性
 def get_data_by_one_index(find_index,table,index,value):
@@ -83,15 +97,25 @@ def get_scenery_list(area_name): # 这个函数没问题
     scenery_name = get_data_by_one_index('SYname', 'scenery', 'SYcode', city+'%') # 获得每个城区的所有景点的名称，3
         # print(scenery_name)
     scenery_code = get_data_by_one_index('SYcode', 'scenery', 'SYcode', city+'%') # 获得每个城区所有景点的编号.3
+    scenery_Llke = get_data_by_one_index('SYliked', 'scenery', 'SYcode', city + '%')  # 获得每个城区所有景点的点赞数.3
         # print(scenery_code)
     for i in range(len(scenery_name)):
             # print(i)
         image_path = get_data_by_one_index('Image_path', 'Image', 'SYcode', scenery_code[i][0])[0][0]  # 获得每个景点的第一张图片
-        my_dict = {'area_name':area_name,'name':scenery_name[i][0],'description':scenery_describution[i][0],'image':image_path}
+        my_dict = {'area_name':area_name,'name':scenery_name[i][0],'description':scenery_describution[i][0],'image':image_path,'like_count':scenery_Llke[i][0]}
         scenery.append(my_dict)
-    print(scenery)
+    # print(scenery)
     return scenery
 
+# 将景点名称为spot_name的景点的点赞数＋1
+def likeadd(spot_name):
+    db = get_db()
+    cursor = db.cursor()
+    sql = "update scenery set SYliked=SYliked+1 where SYname='%s' " % spot_name
+    # 执行sql语句
+    cursor.execute(sql)
+    # 执行sql语句
+    db.commit()
 
 if  __name__ == '__main__':
     # data=get_data_by_one_index('Image_path','Image','SYcode','GC%')

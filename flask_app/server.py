@@ -1,15 +1,18 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file, jsonify
 
 # import config
 import sql
 app = Flask(__name__)
 
-
+USER_ACCOUNT=''  # 定义一个全局变量，表示用户
 # 获取，验证用户登录，登入成功进入首页，否则提示错误
 @app.route('/login_request/',methods=['POST'])
 def login_request():
     account=request.form.get('username')
     password=request.form.get('password')
+    global USER_ACCOUNT
+    USER_ACCOUNT = account
+    print(type(USER_ACCOUNT))
     if len(sql.user_login(account,password)):
         return render_template('home.html')
     else:
@@ -61,11 +64,34 @@ def scenery_list(area_name):
     # 用字典列表存储信息
     # 图片地址：https://github.com/xhuashen/database_design/blob/main/scenery/image/GC00101.jpg
     for i in scenery:
-        i['description']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['description']
+        i['description']='C:/Users/19805128155/Desktop/database_design/database_design/scenery/'+i['description']
         i['image']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['image']
+        # print(i['image'])
+        with open(i['description'], 'r') as file:
+            # 读取文件内容并存储为字符串
+            file_contents = file.read()
+            i['description']=file_contents
+        # 输出文件内容
+        # print(i['description'])
     return render_template('scenery.html',title='景点介绍列表',spots=scenery)
 
 
+# 用户点赞后为用户的收藏表增加一个收藏
+@app.route('/api/like', methods=['POST'])
+def like():
+    spot_id = request.json.get('id')
+    print(spot_id)
+    sql.likeadd(spot_id)  # 将点击返回到后台，即用户收藏景点，则景点的SYliked属性＋1
+    # 将收藏加入用户的收藏列表 # user_account,SYcode,获取SYcode
+    sycode=sql.get_data_by_one_index('sycode','scenery','syname',spot_id)[0][0]
+    print(sycode)
+    print(USER_ACCOUNT)
+    sql.insert_user_data_two('user_liked',USER_ACCOUNT,sycode)
+    print(USER_ACCOUNT)
+    # like_counts=sql.get_data_by_one_index('SYliked','scenery','SYname',spot_id)[0]
+    # print(like_counts)
+    return
 
 if  __name__ == '__main__':
     app.run(host="0.0.0.0", port=7000)
+# 3
