@@ -14,6 +14,7 @@ GC003         高淳老街        scenery_introduction/GC003.txt        Tourist_
 XW001      南京博物院       scenery_introduction/XW001.txt               tourist_distribution/XW001.txt                    0
 XW002      南京总统府              scenery_introduction/XW002.txt               tourist_distribution/XW002.txt                    35
 XW003      玄武湖                     scenery_introduction/XW003.txt               tourist_distribution/XW003.txt                    0
+XW004      钟山风景区                     scenery_introduction/XW004.txt               tourist_distribution/XW004.txt                    0
 JN001      牛首山          scenery_introduction/JN001.txt               tourist_distribution/JN001.txt                     98
 JN002      汤山风景区             scenery_introduction/JN002.txt               tourist_distribution/JN002.txt                     40
 JN003      银杏湖旅游度假区  scenery_introduction/JN003.txt                tourist_distribution/JN003.txt                     180
@@ -26,3 +27,6 @@ QH003      老门东                     scenery_introduction/QH003.txt         
 GL001      南京大学鼓楼校区   scenery_introduction/GL001.txt              tourist_distribution/GL001.txt                       0
 GL002      紫峰大厦                  scenery_introduction/GL002.txt              tourist_distribution/GL002.txt                       0
 GL003      南京长江大桥          scenery_introduction/GL003.txt              tourist_distribution/GL003.txt                       0
+JY001      侵华日军南京大屠杀遇难同胞纪念馆          scenery_introduction/JY001.txt               tourist_distribution/JY001.txt                    0
+JY002      南京眼                     scenery_introduction/JY002.txt               tourist_distribution/JY002.txt                    0
+JY003      鱼嘴公园                     scenery_introduction/JY003.txt               tourist_distribution/JY003.txt                    0
