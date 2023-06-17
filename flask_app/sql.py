@@ -123,5 +123,5 @@ if  __name__ == '__main__':
     # print(data)
     # print(get_data_by_one_index('SYname','scenery','SYcode','GC%'))
     #for i in get_scenery_list():
-    #    print(i)
+    print('sad')
     print(get_scenery_list('GC'))
