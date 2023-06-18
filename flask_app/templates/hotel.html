@@ -14,20 +14,21 @@
     <div class="container">
       <h1>{{ title }}</h1>
 
-      {% for spot in spots %}
+      {% for hotel in hotels %}
       <div class="card my-3">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="{{ spot.image }}" class="img-fluid rounded-start" alt="{{ spot.name }}">
+            <img src="{{ hotel.image }}" class="img-fluid rounded-start" alt="{{ hotel.name }}">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ spot.name }}</h5>
-              <p class="card-text">{{ spot.description }}</p>
-              <button id="{{ spot.area_name }}+{{spot.name}}" class="details-button">查看详情</button>
+              <h5 class="card-title">{{ hotel.name }}</h5>
+              <p class="card-text">位置:{{ hotel.location }}</p>
+               <p class="card-text">联系电话：{{ hotel.call }}</p>
+              <p class="card-text">酒店档次：{{ hotel.grade }}</p>
+              <button id="{{ hotel.area_name }}+{{hotel.name}}" class="details-button">查看详情</button>
           <div>
-            <button class="like-button" data-id="{{ spot.name }}">收藏</button>
-            <span class="like-count">收藏数{{spot.like_count}}</span>
+
           </div>
             </div>
           </div>
@@ -41,7 +42,7 @@
        const buttons = document.querySelectorAll('.details-button');
        buttons.forEach(button => {
           button.addEventListener('click', () => {
-              window.location.href = `/details/${button.id}`;
+              window.location.href = `/hotel_details/${button.id}`;
     });
   });
       // 获取所有点赞按钮和点赞数量元素的引用
@@ -51,7 +52,7 @@
   // 为每个点赞按钮添加点击事件处理函数
   likeButtons.forEach(button => {
     button.addEventListener('click', async () => {
-      const response = await fetch('/api/like', {
+      const response = await fetch('/api/hotel_like', {
         method: 'POST',
         body: JSON.stringify({ id: button.dataset.id }),
         headers: { 'Content-Type': 'application/json' }

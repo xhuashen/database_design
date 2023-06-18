@@ -139,11 +139,60 @@ def get_scenery_detail_list(scenery_name):
     return spot_detail
 
 
-# def get_hotel_information():
+# 要获取，酒店区域hotel_area_name，酒店位置location，酒店名称name，酒店图片image，电话号码call，等级grade
+def get_hotel_information(hotel_area_name):
+    hotel = []
+    hotel_name=[]
+    hotel_code=[]
+    city=hotel_area_name
+    hotel_describution = get_data_by_one_index('hotelinformation', 'hotel', 'hotelcode', city + '%')  # 获得每个城区所有酒店的介绍文件路径
+   # print(hotel_describution)
+    for i in range(len(hotel_describution)):
+        hotel_name.append(hotel_describution[i][0].split("_")[1].split(".")[0])
+        hotel_code.append(hotel_describution[i][0].split("_")[0])
+    #print(hotel_name)
+    #print(hotel_code)
+    for i in range(len(hotel_code)):
+        # 解析酒店的描述文件
+        with open('C:/Users/19805128155/Desktop/database_design/database_design/hotel/hotel_introduction/'+hotel_describution[i][0], 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+        result = [line.strip().split("+")[1] for line in lines]
+        image=get_data_by_one_index('Image', 'hotel_Image', 'image_code', hotel_code[i])[1][0]
+        dict={
+            'image':'https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/'+image+'?raw=true',
+            'name':hotel_name[i],
+            'location':result[2],
+            'call':result[3],
+            'grade':result[5],
+        }
+        hotel.append(dict)
+        #print(image)
+        #print(result)
+    #print(hotel)
+    return hotel
 
+def get_hotel_detail_list(hotel_name):
+    hotel_description=get_data_by_one_index('hotelinformation', 'hotel', 'hotelinformation', '%'+hotel_name + '%')[0][0]
+    hotel_code=hotel_description.split("_")[0]
+    #print(hotel_description)
+    with open('C:/Users/19805128155/Desktop/database_design/database_design/hotel/hotel_introduction/' +hotel_description, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+    result = [line.strip().split("+")[1] for line in lines]
+    image = get_data_by_one_index('Image', 'hotel_Image', 'image_code', hotel_code)
+    dict = {
+        'description':result[1],
+        'name': hotel_name,
+        'location': result[2],
+        'call': result[3],
+        'url':result[4],
+        'image0':'https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/'+image[0][0]+'?raw=true',
+        'image1': 'https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/' + image[1][0] + '?raw=true',
+        'image2': 'https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/' + image[2][0] + '?raw=true',
+        'image3': 'https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/' + image[3][0] + '?raw=true'
+
+    }
+    #print(dict)
+    return dict
 
 if  __name__ == '__main__':
-    spot_detail=get_scenery_detail_list('栖霞山')
-    # print(spot_detail)
-    for i in spot_detail:
-        print(i+':'+spot_detail[i])
+    get_hotel_detail_list('WeiYeNaH')

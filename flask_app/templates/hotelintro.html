@@ -57,16 +57,17 @@
       33.33% { opacity: 1; }
       44.44% { opacity: 0; }
     }
+
   </style>
 </head>
 <body>
   <div class="hotel-info">
-    <img src="https://media.united.com/images/Media%20Database/SDL/MileagePlus/earn-miles/hotel-partners/logo_ritz_carlton.svg?raw=true" alt="酒店图片1">
+    <img src={{hotel.image0}} alt="酒店图片1">
     <div class="text">
-      <h2>名称：<?php echo $hotelName; ?></h2>
-      <p>描述：<?php echo $hotelDescription; ?></p>
-      <p>地址：<?php echo $hotelAddress; ?></p>
-      <p>电话：<?php echo $hotelPhone; ?></p>
+      <h2>名称：{{hotel.name}}</h2>
+      <p>地址：{{hotel.location}}</p>
+      <p>电话：{{hotel.call}}</p>
+      <p>预定链接：{{hotel.url}}</p>
     </div>
   </div>
 
@@ -85,11 +86,15 @@
   </script>
 
   <div class="slideshow">
-    <img src="https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/XW01_1.jpg?raw=true" alt="图片1">
-    <img src="https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/XW01_2.jpg?raw=true" alt="图片2">
-    <img src="https://github.com/xhuashen/database_design/blob/main/hotel/hotel_image/XW01_3.jpg?raw=true" alt="图片3">
-  </div>
+    <img src={{hotel.image1}} alt="图片1">
+    <img src={{hotel.image2}} alt="图片2">
+    <img src={{hotel.image3}} alt="图片3">
 
+  </div>
+  <div class="image-text">
+    <h3>Welcome to Our Hotel</h3>
+    <p>{{hotel.description}}</p>
+  </div>
   <script>
     // 图片轮播动画代码可以在此处添加
   </script>

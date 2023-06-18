@@ -49,6 +49,11 @@ def login():
 def area():
     return render_template('area.html')
 
+
+@app.route('/hotel_area',methods=['GET'])
+def hotel_area():
+    return render_template('hotel_area.html')
+
 # 使用动态url传参，获取不同城区的前端页面
 @app.route('/area/<area_name>/',methods=["GET"])
 def scenery_list(area_name):
@@ -75,6 +80,11 @@ def scenery_list(area_name):
         # print(i['description'])
     return render_template('scenery.html',title='景点介绍列表',spots=scenery)
 
+
+@app.route('/hotel_area/<area_name>/',methods=["GET"])
+def hotel_list(area_name):
+    hotel=sql.get_hotel_information(area_name)
+    return render_template('hotel.html',title='酒店介绍列表',hotels=hotel)
 # https://github.com/xhuashen/database_design/blob/main/scenery/image/JN00201.jpg?raw=true
 # 用户点赞后为用户的收藏表增加一个收藏
 @app.route('/api/like', methods=['POST'])
@@ -112,6 +122,12 @@ def scenery_detail(scenery_name):
     return render_template('detail_scenery.html',spot=spot,comments=COM) # comment 参数应该是一个字典列表
 
 
+@app.route('/hotel_details/<hotel_name>/',methods=["GET"])
+def hotel_detail(hotel_name):
+    hotel_name=hotel_name.split("+")[1]
+    # print(hotel_name) 得到酒店名字
+    hotel=sql.get_hotel_detail_list(hotel_name)
+    return render_template('hotelintro.html',hotel=hotel)
 
 
 TIME=''
@@ -131,6 +147,9 @@ def commet_submit():
     # 这里需要返回原页面
     # 从会话中获取之前的 URL
     return
+# @app.route('/route_detail?route_id=1/', methods=['GET'])
+# def route_detail1():
+    
 
 if  __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)
