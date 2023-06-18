@@ -1,9 +1,9 @@
-from flask import Flask, request, render_template, send_file, jsonify
+from flask import Flask, request, render_template, send_file, jsonify, session, url_for
+from werkzeug.utils import redirect
 
 # import config
 import sql
 app = Flask(__name__)
-
 USER_ACCOUNT=''  # 定义一个全局变量，表示用户
 # 获取，验证用户登录，登入成功进入首页，否则提示错误
 @app.route('/login_request/',methods=['POST'])
@@ -65,7 +65,7 @@ def scenery_list(area_name):
     # 图片地址：https://github.com/xhuashen/database_design/blob/main/scenery/image/GC00101.jpg
     for i in scenery:
         i['description']='C:/Users/19805128155/Desktop/database_design/database_design/scenery/'+i['description']
-        i['image']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['image']
+        i['image']='https://github.com/xhuashen/database_design/blob/main/scenery/'+i['image']+'?raw=true'
         # print(i['image'])
         with open(i['description'], 'r') as file:
             # 读取文件内容并存储为字符串
@@ -75,7 +75,7 @@ def scenery_list(area_name):
         # print(i['description'])
     return render_template('scenery.html',title='景点介绍列表',spots=scenery)
 
-
+# https://github.com/xhuashen/database_design/blob/main/scenery/image/JN00201.jpg?raw=true
 # 用户点赞后为用户的收藏表增加一个收藏
 @app.route('/api/like', methods=['POST'])
 def like():
@@ -92,5 +92,28 @@ def like():
     # print(like_counts)
     return
 
+
+# http://114.214.240.215:7000/details/QX+%E6%A0%96%E9%9C%9E%E5%B1%B1
+@app.route('/details/<scenery_name>/',methods=["GET"])
+def scenery_detail(scenery_name):
+    return render_template('detail_scenery.html',spot=[])
+    
+
+
+
+
+
+@app.route('/commet_submit/', methods=['POST'])  # 点击提交之后要进入一个url
+def commet_submit():
+    username = request.form.get('username') # 获取景点的用户评论信息
+    comment = request.form.get('comment')
+    print(username)
+    print(comment)
+    # scenery= SCENERY
+    # 将评论信息插入
+    # 这里需要返回原页面
+    # 从会话中获取之前的 URL
+    return scenery_detail()
+
 if  __name__ == '__main__':
-    app.run(host="0.0.0.0", port=7000)
+    app.run(host="0.0.0.0", port=8000)
