@@ -117,11 +117,31 @@ def likeadd(spot_name):
     # 执行sql语句
     db.commit()
 
+
+# 存储每个景点的详细信息,以字典的形式，包括spot.name, spot.description spot.location spot.avg_cost , spot.call, spot.image_url1,2,3,用于渲染模板
+def get_scenery_detail_list(scenery_name):
+    scenery_describution = get_data_by_one_index('SYinformation', 'scenery', 'SYname', scenery_name )[0][0]  # 获得每个景点所有景点的介绍文件路径。3
+    scenery_code=get_data_by_one_index('SYcode', 'scenery', 'SYname', scenery_name )[0][0] # 获取景点编号
+    image=get_data_by_one_index('Image_path', 'Image', 'SYcode', scenery_code) # 得到三个路径，对于于三张图片
+    scenery_describution='C:/Users/19805128155/Desktop/database_design/database_design/scenery/'+scenery_describution
+    # 对这个txt文件里面的内容进行解析
+    # 定义一个字典来储存这些信息
+    with open(scenery_describution, 'r',encoding='utf-8') as f:
+        lines = f.readlines()
+    result = [line.strip() for line in lines] # 这个列表储存了每一行的元素
+    # print(result)
+    spot_detail={'name':scenery_name,'description':result[0],
+                 'avg_cost':result[3],'location':result[2],'call':result[1],
+                 'image_url1':image[0][0],'image_url2':image[1][0],'image_url3':image[2][0]}
+    spot_detail['image_url1']='https://github.com/xhuashen/database_design/blob/main/scenery/'+spot_detail['image_url1']+'?raw=true'
+    spot_detail['image_url2'] = 'https://github.com/xhuashen/database_design/blob/main/scenery/' + spot_detail['image_url2'] + '?raw=true'
+    spot_detail['image_url3'] = 'https://github.com/xhuashen/database_design/blob/main/scenery/' + spot_detail['image_url3'] + '?raw=true'
+    return spot_detail
+
+
+
 if  __name__ == '__main__':
-    # data=get_data_by_one_index('Image_path','Image','SYcode','GC%')
-    # print(get_data_from_tabel('location'))
-    # print(data)
-    # print(get_data_by_one_index('SYname','scenery','SYcode','GC%'))
-    #for i in get_scenery_list():
-    print('sad')
-    print(get_scenery_list('GC'))
+    spot_detail=get_scenery_detail_list('栖霞山')
+    # print(spot_detail)
+    for i in spot_detail:
+        print(i+':'+spot_detail[i])
