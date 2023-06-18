@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="utf-8">
+    <title>{{ spot.name }} 欢迎你</title>
+    <style>
+      /* 样式可以根据需求自行修改 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+      header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      main {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .spot-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+      }
+      .spot-image {
+        flex: 1;
+        height: 100vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        overflow-x: scroll;
+      }
+      .image-container {
+        width: calc(100% / 3);
+        height: 100%;
+        margin-right: 20px;
+      }
+      .image-container:last-child {
+        margin-right: 0;
+      }
+      .image-container img {
+        width: 100%;
+        height: auto;
+      }
+      .comment-section {
+        width: 100%;
+        padding: 50px;
+        background-color: white;
+      }
+      .comment-form {
+        display: flex;
+        flex-direction: column;
+      }
+      .comment-form input[type="text"],
+      .comment-form textarea {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+      }
+      .comment-form input[type="submit"] {
+        padding: 5px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .comment-list {
+        margin-top: 20px;
+        list-style-type: none;
+        padding: 0;
+      }
+      .comment-list li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f5f5f5;
+      }
+      .comment-list li strong {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 18px;
+      }
+      .comment-list li span {
+        display: block;
+        margin-bottom: 10px;
+        color: #666;
+        font-size: 14px;
+      }
+      .comment-list li p {
+        margin-bottom: 0;
+        color: #333;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{ spot.name }} 的信息</h1>
+    </header>
+    <main>
+      <div class="spot-image">
+        <div class="image-container">
+          <img src="{{ spot.image_url }}" alt="{{ spot.name }}">
+        </div>
+        <div class="image-container">
+          <img src="{{ spot.image_url2 }}" alt="{{ spot.name }} 2">
+        </div>
+        <div class="image-container">
+          <img src="{{ spot.image_url3 }}" alt="{{ spot.name }} 3">
+        </div>
+      </div>
+      <div class="spot-info">
+        <h2>{{ spot.name }}</h2>
+        <p>{{ spot.description }}</p>
+        <ul>
+          <li>位置：{{ spot.location }}</li>
+          <li>人均消费：¥{{ spot.avg_cost }}</li>
+        </ul>
+      </div>
+    </main>
+    <div class="comment-section">
+      <h2>评论</h2>
+      <form class="comment-form" action="/commet_submit" method="post">
+        <input type="text" name="username" placeholder="用户名">
+        <textarea name="comment" placeholder="说点什么吧..."></textarea>
+        <input type="submit" value="提交评论">
+      </form>
+      <ul class="comment-list">
+        {% for comment in comments %}
+          <li>
+            <strong>{{ comment.username }}</strong>
+            <span>{{ comment.timestamp }}</span>
+            <p>{{ comment.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+   </body>
+</html>
+
