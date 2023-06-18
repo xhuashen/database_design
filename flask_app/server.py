@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, send_file, jsonify, session, url_for
 from werkzeug.utils import redirect
-
+from datetime import datetime
 # import config
 import sql
 app = Flask(__name__)
@@ -93,27 +93,44 @@ def like():
     return
 
 
+SCENERY=''
 # http://114.214.240.215:7000/details/QX+%E6%A0%96%E9%9C%9E%E5%B1%B1
 @app.route('/details/<scenery_name>/',methods=["GET"])
 def scenery_detail(scenery_name):
-    return render_template('detail_scenery.html',spot=[])
-    
+    # print(scenery_name) # 这个为QX+栖霞山，将栖霞山给解析出来
+    scenery_name = scenery_name.split("+")[1]
+    global SCENERY
+    SCENERY=scenery_name # 将景点名赋值给全局变量
+    # print(scenery_name) # 解析结果
+    spot=sql.get_scenery_detail_list(scenery_name)
+    # 提取出数据库中的评论信息
+    COM=[] # 评论信息的字典列表
+    comment=sql.get_data_by_one_index('*','comment','scenery',scenery_name)
+    for i in range(len(comment)):
+        dict={'username':comment[i][1],'timestamp':TIME,'content':comment[i][2]}
+        COM.append(dict)
+    return render_template('detail_scenery.html',spot=spot,comments=COM) # comment 参数应该是一个字典列表
 
 
 
 
+TIME=''
 
 @app.route('/commet_submit/', methods=['POST'])  # 点击提交之后要进入一个url
 def commet_submit():
     username = request.form.get('username') # 获取景点的用户评论信息
     comment = request.form.get('comment')
-    print(username)
-    print(comment)
+    # print(username)
+    # print(comment)
+    sql.insert_user_data('comment',SCENERY,username,comment)
+    now = datetime.now()
+    global TIME
+    TIME=now # 获取评论时间,评论时间应该放进数据库里面
     # scenery= SCENERY
     # 将评论信息插入
     # 这里需要返回原页面
     # 从会话中获取之前的 URL
-    return scenery_detail()
+    return
 
 if  __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)

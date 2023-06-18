@@ -32,26 +32,52 @@
         align-items: center;
         padding: 50px;
       }
+
+
       .spot-image {
-        flex: 1;
-        height: 100vh;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-        overflow-x: scroll;
-      }
+         position: relative;
+         width: 50%;
+         height: 100vh;
+         overflow: hidden;
+}
       .image-container {
-        width: calc(100% / 3);
-        height: 100%;
-        margin-right: 20px;
-      }
-      .image-container:last-child {
-        margin-right: 0;
+          position: absolute;
+          top: 5%;
+          left: 10%;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          opacity: 0;
       }
       .image-container img {
-        width: 100%;
-        height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      }
+      @keyframes image-animation {
+      0% {
+         opacity: 0;
+          }
+      11.11% {
+          opacity: 1;
+          }
+      33.33% {
+          opacity: 1;
+          }
+      44.44% {
+          opacity: 0;
+          }
+      }
+      .image-container:nth-child(1) {
+          animation: image-animation 9s infinite 0s;
+      }
+      .image-container:nth-child(2) {
+          animation: image-animation 9s infinite 3s;
+      }
+      .image-container:nth-child(3) {
+          animation: image-animation 9s infinite 6s;
       }
       .comment-section {
         width: 100%;
@@ -106,12 +132,12 @@
   </head>
   <body>
     <header>
-      <h1>{{ spot.name }} 的信息</h1>
+      <h1>欢迎来到{{ spot.name }}</h1>
     </header>
     <main>
       <div class="spot-image">
         <div class="image-container">
-          <img src="{{ spot.image_url }}" alt="{{ spot.name }}">
+          <img src="{{ spot.image_url1 }}" alt="{{ spot.name }}">
         </div>
         <div class="image-container">
           <img src="{{ spot.image_url2 }}" alt="{{ spot.name }} 2">
@@ -124,6 +150,7 @@
         <h2>{{ spot.name }}</h2>
         <p>{{ spot.description }}</p>
         <ul>
+          <li>联系电话：{{ spot.call }}</li>
           <li>位置：{{ spot.location }}</li>
           <li>人均消费：¥{{ spot.avg_cost }}</li>
         </ul>
