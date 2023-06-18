@@ -139,6 +139,8 @@ def get_scenery_detail_list(scenery_name):
     return spot_detail
 
 
+# def get_hotel_information():
+
 
 if  __name__ == '__main__':
     spot_detail=get_scenery_detail_list('栖霞山')
