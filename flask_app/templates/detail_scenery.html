@@ -159,7 +159,7 @@
     <div class="comment-section">
       <h2>评论</h2>
       <form class="comment-form" action="/commet_submit" method="post">
-        <input type="text" name="username" placeholder="用户名">
+<!--        <input type="text" name="username" placeholder="用户名">-->
         <textarea name="comment" placeholder="说点什么吧..."></textarea>
         <input type="submit" value="提交评论">
       </form>
@@ -167,7 +167,7 @@
         {% for comment in comments %}
           <li>
             <strong>{{ comment.username }}</strong>
-            <span>{{ comment.timestamp }}</span>
+<!--            <span>{{ comment.timestamp }}</span>-->
             <p>{{ comment.content }}</p>
           </li>
         {% endfor %}

@@ -134,11 +134,11 @@ TIME=''
 
 @app.route('/commet_submit/', methods=['POST'])  # 点击提交之后要进入一个url
 def commet_submit():
-    username = request.form.get('username') # 获取景点的用户评论信息
+    # username = request.form.get('username') # 获取景点的用户评论信息
     comment = request.form.get('comment')
     # print(username)
     # print(comment)
-    sql.insert_user_data('comment',SCENERY,username,comment)
+    sql.insert_user_data('comment',SCENERY,USER_ACCOUNT,comment)
     now = datetime.now()
     global TIME
     TIME=now # 获取评论时间,评论时间应该放进数据库里面
@@ -146,10 +146,10 @@ def commet_submit():
     # 将评论信息插入
     # 这里需要返回原页面
     # 从会话中获取之前的 URL
-    return
+    return render_template('submit_success.html')
 # @app.route('/route_detail?route_id=1/', methods=['GET'])
 # def route_detail1():
-    
+
 
 if  __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)
