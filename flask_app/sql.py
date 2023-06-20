@@ -70,7 +70,14 @@ def insert_user_data_two(table,account,SYcode):
     # 执行sql语句
     db.commit()
 
-
+def insert_scenery_data(SYcode,SYname,SYinformation,SYTD):
+    db = get_db()
+    cursor = db.cursor()
+    sql="insert into scenery values ('%s','%s','%s','%s',0)" % (SYcode,SYname,SYinformation,SYTD)
+    # 执行sql语句
+    cursor.execute(sql)
+    # 执行sql语句
+    db.commit()
 
 # 单表查询，单条件,查询单属性
 def get_data_by_one_index(find_index,table,index,value):
@@ -194,5 +201,16 @@ def get_hotel_detail_list(hotel_name):
     #print(dict)
     return dict
 
+# 这个函数获取下一个景点或者酒店的主码，也就是编号
+def get_next_spot_code(area_name):
+    code=get_data_by_one_index('SYcode','scenery','SYcode',area_name+'%')
+    return code[-1][0].split("00")[0]+'00'+'%s'% (int(code[-1][0].split("00")[1])+1)
+
+def get_next_hotel_code(area_name):
+    code=get_data_by_one_index('hotelcode','hotel','hotelcode',area_name+'%')
+    return code[-1][0].split("0")[0]+'0'+'%s'% (int(code[-1][0].split("0")[1])+1)
+
 if  __name__ == '__main__':
-    get_hotel_detail_list('WeiYeNaH')
+    # get_hotel_detail_list('WeiYeNaH')
+    print(get_next_hotel_code('PK'))
+    print(get_next_spot_code('PK'))

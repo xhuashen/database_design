@@ -3,6 +3,7 @@ from werkzeug.utils import redirect
 from datetime import datetime
 # import config
 import sql
+import subprocess
 app = Flask(__name__)
 USER_ACCOUNT=''  # 定义一个全局变量，表示用户
 # 获取，验证用户登录，登入成功进入首页，否则提示错误
@@ -13,6 +14,8 @@ def login_request():
     global USER_ACCOUNT
     USER_ACCOUNT = account
     print(type(USER_ACCOUNT))
+    if account== 'admin' and password == 'admin':
+        return render_template('Admin.html')
     if len(sql.user_login(account,password)):
         return render_template('home.html')
     else:
@@ -102,6 +105,17 @@ def like():
     # print(like_counts)
     return
 
+# 旅游线路页面的查看详情响应，route_detail/?route_id=1
+@app.route('/route_detail1/',methods=["GET"])
+def route_detail1():
+    return render_template('tourroute1.html')
+@app.route('/route_detail2/',methods=["GET"])
+def route_detail2():
+    return render_template('tourroute2.html')
+
+@app.route('/route_detail3/',methods=["GET"])
+def route_detail3():
+    return render_template('tourroute3.html')
 
 SCENERY=''
 # http://114.214.240.215:7000/details/QX+%E6%A0%96%E9%9C%9E%E5%B1%B1
@@ -147,8 +161,86 @@ def commet_submit():
     # 这里需要返回原页面
     # 从会话中获取之前的 URL
     return render_template('submit_success.html')
-# @app.route('/route_detail?route_id=1/', methods=['GET'])
-# def route_detail1():
+
+
+
+# 完成管理员页面的构造
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    # 在此保存上传的文件到服务器上，如：
+    print(file)
+    file.save('./file.jpg')
+    return render_template('Admin.html')
+
+@app.route('/submit_spot_info', methods=['POST'])
+def submit_spot_info():
+    # 获取表单字段的值
+    spot_name = request.form['spot_name']
+    spot_area = request.form['spot_area']
+    spot_image_1 = request.files['spot_image_1']
+    spot_image_2 = request.files['spot_image_2']
+    # （接上一条消息）
+    spot_image_3 = request.files['spot_image_3']
+    spot_description_short = request.form['spot_description_short']
+    spot_description_long = request.form['spot_description_long']
+    # 对表单数据进行处理，例如将图片保存到服务器等操作
+    print(spot_name) # get syname
+    print(spot_area)
+    print(spot_image_1)
+    print(spot_image_2)
+    print(spot_image_3)
+    print(spot_description_short)
+    print(spot_description_long)
+    # 将数据存入数据库中，将对景点的描述存到本地，将景点的图片存入github
+    spotcode=sql.get_next_spot_code(spot_area)
+    print(spotcode) # get sycode
+    SYinformation='scenery_introduction/'+spotcode+'.txt'
+    SYTD='Tourist_distribution/'+spotcode+'.txt'
+    # 将景点添加进表scenery
+    sql.insert_scenery_data(spotcode,spot_name,SYinformation,SYTD)
+    # 将文本文件写入了本地
+    with open('C:/Users/19805128155/Desktop/database_design/database_design/scenery/'+SYinformation, 'w', encoding='utf-8') as f:
+        f.write(spot_description_long)
+    with open('C:/Users/19805128155/Desktop/database_design/database_design/scenery/'+SYTD, 'w', encoding='utf-8') as f:
+        f.write(spot_description_short)
+    # 将图片文件路径存入数据库中，并存入github
+    sql.insert_user_data_two('image', spotcode,'image/'+spotcode+'01.jpg')
+    sql.insert_user_data_two('image', spotcode, 'image/' + spotcode + '02.jpg')
+    sql.insert_user_data_two('image', spotcode, 'image/' + spotcode + '03.jpg')
+    spot_image_1.save('C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/'+spotcode+'01.jpg')
+    spot_image_2.save('C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/' + spotcode + '02.jpg')
+    spot_image_3.save('C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/' + spotcode + '03.jpg')
+    # 将图片传入github
+    # 添加文件到暂存区
+    subprocess.run(['git', 'add', 'C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/'+spotcode+'01.jpg'])
+    subprocess.run(['git', 'add',
+                    'C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/' + spotcode + '02.jpg'])
+    subprocess.run(['git', 'add',
+                    'C:/Users/19805128155/Desktop/database_design/database_design/scenery/image/' + spotcode + '03.jpg'])
+    # 提交到本地仓库
+    subprocess.run(['git', 'commit', '-m', '"<commit message>"'])
+    # git push
+    subprocess.run(['git', 'push'])
+
+    # 返回一个重定向到原始页面的响应
+    return render_template('Admin.html')
+
+
+@app.route('/submit_hotel_info', methods=['POST'])
+def submit_hotel_info():
+# 获取表单字段的值
+    hotel_name = request.form['hotel_name']
+    hotel_area = request.form['hotel_area']
+    hotel_image_1 = request.files['hotel_image_1']
+    hotel_image_2 = request.files['hotel_image_2']
+    hotel_image_3 = request.files['hotel_image_3']
+    hotel_image_4 = request.files['hotel_image_4']
+    hotel_description = request.form['hotel_description']
+    print(hotel_name)
+    return render_template('Admin.html')
+
+
 
 
 if  __name__ == '__main__':

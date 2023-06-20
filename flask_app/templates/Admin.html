@@ -1,39 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>文件上传</title>
-  </head>
-  <body>
-    <h1>文件上传</h1>
+<head>
+	<title>景点和酒店信息提交</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		form{
+			display: flex;
+			flex-direction: column;
+		}
+		label{
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		input[type="text"], textarea{
+			margin-bottom: 15px;
+			padding: 5px;
+		}
+		input[type="file"]{
+			margin-bottom: 15px;
+		}
+		input[type="submit"]{
+			background-color: #3399ff;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h1>景点信息提交表单</h1>
+	<form action="/submit_spot_info" method="POST" enctype="multipart/form-data">
+		<label for="spot_name">景点名称:</label>
+		<input type="text" id="spot_name" name="spot_name">
 
-    <form id="upload-form">
-      <div>
-        <label for="file-input">选择文件：</label>
-        <input type="file" id="file-input" name="file" />
-      </div>
+		<label for="spot_area">景点所在区域:</label>
+		<input type="text" id="spot_area" name="spot_area">
 
-      <button type="submit">上传</button>
-    </form>
+		<label for="spot_image_1">景点图片 1:</label>
+		<input type="file" id="spot_image_1" name="spot_image_1" accept=".jpg">
 
-    <script>
-      const form = document.getElementById('upload-form');
+		<label for="spot_image_2">景点图片 2:</label>
+		<input type="file" id="spot_image_2" name="spot_image_2" accept=".jpg">
 
-      form.addEventListener('submit', async event => {
-        event.preventDefault();
+		<label for="spot_image_3">景点图片 3:</label>
+		<input type="file" id="spot_image_3" name="spot_image_3" accept=".jpg">
 
-        const formData = new FormData(form);
+		<label for="spot_description_short">简要介绍:</label>
+		<textarea id="spot_description_short" name="spot_description_short"></textarea>
 
-        try {
-          const response = await fetch('/upload', {
-            method: 'POST',
-            body: formData,
-          });
+		<label for="spot_description_long">详细介绍:</label>
+		<textarea id="spot_description_long" name="spot_description_long"></textarea>
 
-          console.log(await response.text());
-        } catch (error) {
-          console.log(error.message);
-        }
-      });
-    </script>
-  </body>
+		<input type="submit" value="提交">
+	</form>
+
+	<h1>酒店信息提交表单</h1>
+	<form action="/submit_hotel_info" method="POST" enctype="multipart/form-data">
+		<label for="hotel_name">酒店名称:</label>
+		<input type="text" id="hotel_name" name="hotel_name">
+
+		<label for="hotel_area">酒店所在区域:</label>
+		<input type="text" id="hotel_area" name="hotel_area">
+
+		<label for="hotel_image_1">酒店图片 1:</label>
+		<input type="file" id="hotel_image_1" name="hotel_image_1" accept=".jpg">
+
+		<label for="hotel_image_2">酒店图片 2:</label>
+		<input type="file" id="hotel_image_2" name="hotel_image_2" accept=".jpg">
+
+		<label for="hotel_image_3">酒店图片 3:</label>
+		<input type="file" id="hotel_image_3" name="hotel_image_3" accept=".jpg">
+
+		<label for="hotel_image_4">酒店图片 4:</label>
+		<input type="file" id="hotel_image_4" name="hotel_image_4" accept=".jpg">
+
+		<label for="hotel_description">酒店信息描述:</label>
+		<textarea id="hotel_description" name="hotel_description"></textarea>
+
+		<input type="submit" value="提交">
+	</form>
+</body>
 </html>
